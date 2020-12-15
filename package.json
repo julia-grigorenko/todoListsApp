@@ -1,0 +1,12 @@
+{
+  "name": "todolistsapp",
+  "version": "1.0.0",
+  "description": "App creates todo lists with names which are given with url pathes. It is a modification of study project from 'The-complete-web-development-bootcamp' with Angela Yu",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Julia G",
+  "license": "ISC"
+}
