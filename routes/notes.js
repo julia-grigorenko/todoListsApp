@@ -32,4 +32,37 @@ router.route('/:customListName').get((req, res) => {
   });
 });
 
+router.route('/').post((req,res)=> {
+  const action = req.body.todo;
+  const listName = req.body.listName;
+  const item = new Item.Item({
+    name: action,
+    date: day
+  });
+
+  if (listName === "average"){
+    item.save();
+    res.redirect("/");
+  } else {
+    List.List.findOne({name: listName}, function(err, foundList){
+      if (!err){
+        if (!foundList){
+          //Create a new list
+          const items = [];
+          items.push(item);
+          const list = new List.List({
+            name: listName,
+            items: items
+          });
+          list.save();
+        } else {
+            foundList.items.push(item);
+            foundList.save();
+        }
+            res.redirect("/" + listName);
+        }
+      });
+    }
+});
+
 module.exports = router;
