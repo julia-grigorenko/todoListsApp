@@ -65,4 +65,25 @@ router.route('/').post((req,res)=> {
     }
 });
 
+router.route('/delete').post((req, res) => {
+  const checkedItemId = req.body.checkbox;
+  const listName = req.body.listName;
+
+  if (listName === 'average') {
+
+    Item.Item.findByIdAndRemove(checkedItemId, (err) => {
+      if (!err) {
+        res.redirect("/");
+      }
+    });
+  } else {
+
+    List.List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, foundList) => {
+      if (!err){
+        res.redirect("/" + listName);
+      }
+    });
+  }
+});
+
 module.exports = router;
